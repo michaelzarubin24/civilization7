@@ -1,55 +1,36 @@
-import { isArray, defineEvent } from "../utils";
+import { isArray } from "../utils";
+import { toHTML } from "../core/toHTML";
 
 export class Component {
+  constructor({ tagName, className, children }) {
+    if (!tagName) return;
+    this.tagName = tagName;
+    if (!className) return;
+    this.className = className;
+    if (!children || isArray(children)) return;
+    for (const child of children) {
+      const elem = toHTML(child);
+      this.children.push(elem);
+    }
+  }
+}
+
+export class AdvancedComponent extends Component {
   constructor({
     tagName,
     className,
+    children,
     textContent,
     html,
-    children,
     events,
     ...attrs
   }) {
-    if (!tagName) return;
-    this.tagName = tagName;
-    this.className = className;
+    super({ tagName, className, children });
+
     if (textContent) this.textContent = textContent;
     this.html = html;
     this.children = children;
-    this.events = events;
-    if (attrs) this.attrs = attrs;
-  }
-  toHTML() {
-    const element = document.createElement(this.tagName);
-    if (this.className) element.className = this.className;
-    if (this.textContent) element.textContent = this.textContent;
-    if (this.html)
-      element.insertAdjacentHTML(this.html.position, this.html.text);
-
-    if (!this.children || isArray(this.children)) return element;
-    for (const child of this.children) {
-      element.append(child);
-    }
-
-    if (!this.events) return element;
-
-    for (const event of events) {
-      for (const eventKey in event) {
-        defineEvent({
-          el: element,
-          event: eventKey,
-          eventFunc: event[eventKey],
-        });
-      }
-    }
-
-    if (this.attrs) {
-      for (const attr in this.attrs) {
-        const value = this.attrs[attr];
-        element[attr] = value;
-      }
-    }
-
-    return element;
+    if (events) this.events = events;
+    this.attrs = attrs;
   }
 }
