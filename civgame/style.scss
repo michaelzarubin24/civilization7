@@ -1,0 +1,10 @@
+@import "../civgame/styles/variables.scss";
+@import "../civgame/styles/mixings.scss";
+
+body {
+  background-image: url(./public/images/bg.png);
+}
+
+.app {
+  font-family: "ITC Medium";
+}

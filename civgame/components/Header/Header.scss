@@ -1,0 +1,14 @@
+@import "../civgame/styles/variables.scss";
+@import "../civgame/styles/mixings.scss";
+
+.header-panel {
+  @include d-flex(space-between, center, row);
+  font-size: $fs-l;
+  -webkit-text-stroke: 2px black;
+  padding: $padding-m;
+  color: $third-text-color;
+}
+
+// .header-logo {
+
+// }

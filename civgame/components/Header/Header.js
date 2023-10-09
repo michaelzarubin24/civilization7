@@ -1,6 +1,7 @@
 import { Component } from "/Users/Intel/Desktop/Civilization 7/civgame/core/component";
+import "../Header/Header.scss";
 
-export class Application extends Component {
+export class Header extends Component {
   constructor({
     tagName,
     className,
@@ -19,5 +20,8 @@ export class Application extends Component {
       events,
       ...attrs,
     });
+    this.header = document.createElement(tagName ? tagName : "header");
+    this.header.className = className;
+    this.header.textContent = textContent ? textContent : "";
   }
 }
