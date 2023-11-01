@@ -1,23 +1,24 @@
-import { Component } from "/Users/Intel/Desktop/Civilization 7/civgame/core/component";
+import { Component } from "../../core/component";
 
 export class Application extends Component {
   constructor({
     tagName,
     className,
-    textContent,
-    html,
     children,
+    html,
+    textContent,
     events,
     ...attrs
   }) {
     super({
       tagName,
       className,
-      textContent,
-      html,
       children,
+      html,
+      textContent,
       events,
       ...attrs,
     });
+    this.setTagName("div");
   }
 }

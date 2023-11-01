@@ -1,55 +1,87 @@
-import { defineEvent } from "../utils/defineEvents";
-import { appendMany } from "../core/append";
+import { toHTML } from "./toHTML";
 
 export class Component {
+  #tagName;
+  #className;
+  #children;
+  #html;
+  #textContent;
+  #events;
+  #attrs;
   constructor({
     tagName,
     className,
-    textContent,
-    html,
     children,
+    html,
+    textContent,
     events,
     ...attrs
   }) {
-    if (!tagName) return;
-    this.tagName = tagName;
-    this.className = className;
-    if (textContent) this.textContent = textContent;
-    this.html = html;
-    this.children = children;
-    this.events = events;
-    if (attrs && Object.keys(attrs).length > 0) this.attrs = attrs;
+    this.#tagName = tagName;
+    this.#className = className;
+    this.#children = children || [];
+    this.#html = html;
+    this.#textContent = textContent;
+    this.#events = events;
+    this.#attrs = attrs || [];
   }
+  // get
+  get tagName() {
+    return this.#tagName;
+  }
+
+  get className() {
+    return this.#className;
+  }
+
+  get children() {
+    return this.#children;
+  }
+  get html() {
+    return this.#html;
+  }
+  get textContent() {
+    return this.#textContent;
+  }
+
+  get events() {
+    return this.#events;
+  }
+
+  get attributes() {
+    return this.#attrs;
+  }
+
+  // set
+
+  setTagName(tagname) {
+    this.#tagName = tagname;
+  }
+  setClassName(className) {
+    this.#className = className;
+  }
+  setChildren(children) {
+    this.#children = children;
+  }
+  setHTML(html) {
+    this.#html = html;
+  }
+  setTextContent(textContent) {
+    this.#textContent = textContent;
+  }
+  setEvents(events) {
+    this.#events = events;
+  }
+
+  // other
+
+  addChildren(children) {
+    for (const child of children) {
+      this.#children.push(child);
+    }
+  }
+
   toHTML() {
-    const element = document.createElement(this.tagName);
-    if (this.className) element.className = this.className;
-    if (this.textContent) element.textContent = this.textContent;
-    if (this.html)
-      element.insertAdjacentHTML(this.html.position, this.html.text);
-
-    if (this.children && this.children.length > 1) {
-      appendMany(element, this.children);
-    }
-
-    if (!this.events) return element;
-
-    for (const event of this.events) {
-      for (const eventKey in event) {
-        defineEvent({
-          el: element,
-          event: eventKey,
-          eventFunc: event[eventKey],
-        });
-      }
-    }
-
-    if (this.attrs) {
-      for (const attr in this.attrs) {
-        const value = this.attrs[attr];
-        element.setAttribute(attr, value);
-      }
-    }
-
-    return element;
+    return toHTML(this);
   }
 }

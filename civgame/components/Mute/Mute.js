@@ -1,6 +1,7 @@
 import { Component } from "../../core/component";
+import "../Mute/Mute.scss";
 
-export class Logo extends Component {
+export class Mute extends Component {
   constructor({
     tagName,
     className,
@@ -19,10 +20,7 @@ export class Logo extends Component {
       events,
       ...attrs,
     });
-    this.setTagName("div");
-    this.setClassName("logo-wrapper");
-    this.setHTML(
-      '<img src="../../public/logos/logo.png" alt="Error" class="logo">'
-    );
+    this.setTagName("a");
+    this.setHTML("<span></span>");
   }
 }

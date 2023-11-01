@@ -1,63 +1,79 @@
-import { Component } from "./core/component";
-import { Application } from "../civgame/App";
-import { Header, Logo } from "./components/index";
+// ---------------------------------------IMPORTS----------------------
+// import { Component } from "../../core/component";
+import { Application } from "../civgame/components/Application/Application";
+import { Main, Button, Logo, Mute } from "../civgame/components/index";
+// --------------------------------------
+import { toHTML } from "./core/toHTML";
 import { append, prepend } from "../civgame/core/append";
+import { playSound } from "./utils/playAudio";
+import "../civgame/styles/style.scss";
 
-import "../civgame/style.scss";
+// --------------------------------------MAIN CODE---------------------
 
-const app = document.querySelector("body");
+const root = document.querySelector("body");
 
-const panel = [
+const logo = new Logo({});
+
+const buttons = [
   {
-    tagName: "div",
-    className: "login",
-    textContent: "LOG IN",
+    textContent: "NEW GAME",
+    href: "../pages/newgame/newgame.html",
   },
   {
-    tagName: "div",
-    className: "signup",
-    textContent: "SIGN UP",
+    textContent: "LOAD",
+    href: "../pages/loading/loading.html",
   },
-].map((panel) => {
-  return new Component({
-    tagName: panel.tagName,
-    className: panel.className,
-    textContent: panel.textContent,
-  }).toHTML();
+  {
+    textContent: "CIVILOPEDIA",
+    href: "../pages/civilopedia/civilopedia.html",
+  },
+  {
+    textContent: "EXIT",
+    href: "#",
+  },
+];
+
+const button = buttons.map((buttons) => {
+  return new Button({
+    className: "btn-menu",
+    textContent: buttons.textContent,
+    href: buttons.href,
+    events: {
+      click: () => {
+        window.location.href = buttons.href;
+      },
+    },
+  });
 });
 
-const logo = new Component({
-  tagName: "img",
-  className: "logo",
-  attrs: {
-    src: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Civilization_VI.svg/2560px-Civilization_VI.svg.png",
-    alt: "Civilization VI Logo",
-  },
-}).toHTML();
+// const audio = new Music({
+//   id: "audio",
+//   src: "../civgame/public/audio/Bleed-Meshuggah.mp3",
+//   autoplay: true,
+//   loop: true,
+// });
 
-const header = new Header({
-  tagName: "header",
-  className: "header",
-  children: [
-    new Component({
-      tagName: "div",
-      className: "header-panel",
-      children: [...panel],
-    }).toHTML(),
-    new Component({
-      tagName: "div",
-      className: "header-logo",
-      children: [logo, ""],
-    }).toHTML(),
-  ],
-}).toHTML();
+const main = new Main({
+  className: "main-menu",
+  children: button,
+});
 
-const App = new Component({
-  tagName: "div",
-  className: "app",
-  children: [header, ""],
-}).toHTML();
+const mute = new Mute({
+  id: "speaker",
+  href: "#",
+});
 
-prepend(app, App);
-console.log("[header]", header);
-console.log("[logo]", logo);
+const app = new Application({
+  id: "app",
+  children: [logo, main, mute],
+});
+
+const App = app.toHTML();
+prepend(root, App);
+
+const webpage = document.getElementById("speaker");
+webpage.addEventListener("click", () => {
+  playSound(
+    "America Theme - Atomic (Civilization 6 OST) _ Hard Times Come Again No More.mp3"
+  );
+});

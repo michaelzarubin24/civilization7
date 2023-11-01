@@ -1,0 +1,17 @@
+@import "../civgame/styles/variables.scss";
+@import "../civgame/styles/mixings.scss";
+
+body {
+  background-image: url(https://2game.com/wp/wp-content/uploads/2020/04/civilization-6-gathering-storm_6050846.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.logo-wrapper {
+  @include d-flex(space-around, center);
+}
+
+.logo {
+  height: 60%;
+  width: 60%;
+  margin-top: $margin-xl;
+}
