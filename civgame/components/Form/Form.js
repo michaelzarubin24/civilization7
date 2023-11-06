@@ -1,7 +1,6 @@
 import { Component } from "../../core/component";
-import "../Mute/Mute.scss";
 
-export class Mute extends Component {
+export class Form extends Component {
   constructor({
     tagName,
     className,
@@ -20,7 +19,7 @@ export class Mute extends Component {
       events,
       ...attrs,
     });
-    this.setTagName("img");
-    // this.setHTML("<span></span>");
+    this.setTagName("div");
+    this.setClassName("form");
   }
 }

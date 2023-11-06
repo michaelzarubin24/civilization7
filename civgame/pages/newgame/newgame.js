@@ -1,5 +1,5 @@
 // / ---------------------------------------IMPORTS----------------------
-// import { Component } from "../../core/component";
+import { Component } from "../../core/component";
 import { Application } from "../../components/Application/Application";
 import { Main, Button, Logo, Mute } from "../../components/index";
 // --------------------------------------

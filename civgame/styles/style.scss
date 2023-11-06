@@ -1,10 +1,17 @@
 @import "../civgame/styles/variables.scss";
 @import "../civgame/styles/mixings.scss";
 
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
 body {
   background-image: url(https://2game.com/wp/wp-content/uploads/2020/04/civilization-6-gathering-storm_6050846.jpg);
   background-repeat: no-repeat;
   background-size: cover;
+  font-family: "ITC Medium";
 }
 
 button {
@@ -20,16 +27,34 @@ button {
 }
 
 .logo {
-  height: 60%;
-  width: 60%;
+  height: 50%;
+  width: 50%;
   margin-top: $margin-xl;
+  transition: transform 0.3s;
+  &:hover {
+    transform: scale(1.15);
+  }
 }
 
 .main-menu {
   @include d-flex(space-around, center, column);
-  margin-top: $margin-xl;
+  margin-top: $margin-xxl;
+}
+#modal-btn {
+  border: 5px ridge #d9dcab;
+  background: #f5f9d3;
+  width: 200px;
+  height: 50px;
+  margin: 10px;
+  transition: transform 0.2s;
+  font-family: "ITC Medium";
+  font-size: $fs-m;
+  color: black;
 }
 
+#modal-btn:hover {
+  transform: scale(1.1);
+}
 .btn-menu {
   border: 5px ridge #d9dcab;
   background: #f5f9d3;

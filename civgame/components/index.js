@@ -3,6 +3,8 @@ import { Main } from "../components/Main/Main";
 import { Application } from "../components/Application/Application";
 import { Logo } from "../components/Logo/Logo";
 import { Mute } from "../components/Mute/Mute";
-// import { Music } from "../components/Music/Music";
+import { Input } from "../components/Input/Input";
+import { Form } from "../components/Form/Form";
+import { Label } from "../components/Label/Label";
 
-export { Application, Main, Button, Logo, Mute };
+export { Application, Main, Button, Logo, Mute, Input, Form, Label };

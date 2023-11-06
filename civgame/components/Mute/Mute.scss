@@ -1,67 +1,17 @@
 @import "../civgame/styles/variables.scss";
 @import "../civgame/styles/mixings.scss";
 
-#speaker {
-  height: 30px;
-  width: 30px;
-  position: relative;
-  overflow: hidden;
-  display: inline-block;
-
-  span {
-    display: block;
-    width: 8px;
-    height: 8px;
-    background: #fff;
-    margin: 11px 0 0 2px;
-
-    &:after {
-      content: "";
-      position: absolute;
-      width: 0;
-      height: 0;
-      border-style: solid;
-      border-color: transparent #fff transparent transparent;
-      border-width: 10px 14px 10px 15px;
-      left: -13px;
-      top: 5px;
-    }
-
-    &:before {
-      transform: rotate(45deg);
-      border-radius: 0 50px 0 0;
-      content: "";
-      position: absolute;
-      width: 5px;
-      height: 5px;
-      border-style: double;
-      border-color: #fff;
-      border-width: 7px 7px 0 0;
-      left: 18px;
-      top: 9px;
-      transition: all 0.2s ease-out;
-    }
-  }
-
-  &:hover {
-    span:before {
-      transform: scale(0.8) translate(-3px, 0) rotate(42deg);
-    }
-  }
-
-  &.mute {
-    height: 60px;
-    width: 60px;
-    span:before {
-      transform: scale(1) translate(0, 0) rotate(0deg);
-      opacity: 1;
-    }
-  }
+// Apply styles to the image element
+.speaker-wrapper {
+  @include d-flex(center, center);
 }
 
-body {
-  color: #fff;
-  font-family: arial, sans-serif;
-  background-color: #333;
-  text-align: center;
+.speaker {
+  margin-top: $margin-xxl;
+  width: 5%;
+  height: 5%;
+  transition: transform 0.3s;
+  &:hover {
+    transform: scale(1.2);
+  }
 }
