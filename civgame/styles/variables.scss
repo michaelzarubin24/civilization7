@@ -1,6 +1,11 @@
 @font-face {
   font-family: "ITC Medium";
-  src: url(../public/fonts/Elan\ ITC\ Std\ Medium.otf);
+  src: url("../public/fonts/ElanITCStdMedium.otf");
+}
+
+@font-face {
+  font-family: "Penumbra";
+  src: url("../../public/fonts/PenumbraHalfSerifStd-Reg.otf");
 }
 
 // PADDING
@@ -29,8 +34,8 @@ $fs-xs: 12px;
 $fs-xxs: 9px;
 
 // FONT-FAMILY
-$ff-primary: "LucasPro";
-$ff-secondary: "Work Sans";
+$ff-primary: "ITC Medium";
+$ff-secondary: "Penumbra";
 
 // COLOR
 $primary-text-color: #ffffff;

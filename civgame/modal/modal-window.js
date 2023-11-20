@@ -1,5 +1,5 @@
 import { Component } from "../core/component";
-import { Input, Form, Label } from "../components/index";
+import { Input, Form, Label, Button } from "../components/index";
 import "../modal/modal-window.scss";
 
 // A close button component
@@ -27,6 +27,14 @@ const formElements = [
       type: "text",
       id: "email",
       placeholder: "Enter email",
+      events: {
+        keydown: (event) => {
+          event.target.style.backgroundColor = "lightblue";
+        },
+        blur: (event) => {
+          event.target.style.backgroundColor = "";
+        },
+      },
     }),
   },
   {
@@ -38,6 +46,14 @@ const formElements = [
       type: "password",
       id: "password",
       placeholder: "Enter password",
+      events: {
+        keydown: (event) => {
+          event.target.style.backgroundColor = "lightblue";
+        },
+        blur: (event) => {
+          event.target.style.backgroundColor = "";
+        },
+      },
     }),
   },
   {
@@ -60,11 +76,18 @@ const formElementsArray = formElements.map((formData) => {
     children: [formData.label, formData.input],
   });
 });
+
+const button = new Button({
+  tagName: "button",
+  textContent: "Sign In",
+  id: "sign-in",
+});
+
 // Create a sign-up button directly as a button element
 const signupBtn = new Component({
   tagName: "div",
   className: "form-element",
-  html: `<button>Sign In</button>`,
+  children: [button],
 });
 
 const remember = new Component({

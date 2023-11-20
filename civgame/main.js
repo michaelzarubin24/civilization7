@@ -6,7 +6,8 @@ import { popup } from "../civgame/modal/modal-window";
 // --------------------------------------
 import { toHTML } from "./core/toHTML";
 import { append, prepend } from "../civgame/core/append";
-import { playSound } from "./utils/playAudio";
+
+import { playSound, hasNumbersAndLetters } from "./utils/index";
 import "../civgame/styles/style.scss";
 
 // --------------------------------------MAIN CODE---------------------
@@ -104,38 +105,59 @@ const app = new Application({
 const App = app.toHTML();
 prepend(root, App);
 
-// ------------------------------------MODAL WINDOW------------------------------------
-// const openModalButtons = document.querySelectorAll("[data-modal-target]");
-// const closeModalButtons = document.querySelectorAll("[data-close-button]");
-// const overlayHTML = document.getElementById("overlay");
+// -----------------------------------VALIDATION-------------------------------------------
 
-// openModalButtons.forEach((button) => {
-//   button.addEventListener("click", () => {
-//     const modal = document.querySelector(button.dataset.modalTarget);
-//     openModal(modal);
-//   });
-// });
+const signButton = document.getElementById("sign-in");
+const inputField = document.getElementById("email");
+const passwordField = document.getElementById("password");
 
-// overlayHTML.addEventListener("click", () => {
-//   const modals = document.querySelectorAll(".modal.active");
-//   modals.forEach((modal) => {
-//     closeModal(modal);
-//   });
-// });
+function validation() {
+  const inputValue = inputField.value.trim();
+  const passwordValue = passwordField.value.trim();
 
-// closeModalButtons.forEach((button) => {
-//   button.addEventListener("click", () => {
-//     const modal = button.closest(".modal");
-//     closeModal(modal);
-//   });
-// });
-// function openModal(modal) {
-//   if (modal == null) return;
-//   modal.classList.add("active");
-//   overlayHTML.classList.add("active");
-// }
-// function closeModal(modal) {
-//   if (modal == null) return;
-//   modal.classList.remove("active");
-//   overlayHTML.classList.remove("active");
-// }
+  if (
+    inputValue.length > 6 &&
+    passwordValue.length > 6 &&
+    hasNumbersAndLetters(inputValue) &&
+    hasNumbersAndLetters(passwordValue)
+  ) {
+    inputField.style.backgroundColor = "lightblue";
+    passwordField.style.backgroundColor = "lightblue";
+    alert("Validation successful! Congratulations!");
+    window.location.href = "./pages/newgame/newgame.html";
+  } else {
+    if (inputValue.length <= 6 || !hasNumbersAndLetters(inputValue)) {
+      inputField.style.backgroundColor = "red";
+      alert(
+        "Email validation failed: Email must have more than 6 characters and contain both letters and numbers."
+      );
+      inputField.focus();
+    }
+    if (passwordValue.length <= 6 || !hasNumbersAndLetters(passwordValue)) {
+      passwordField.style.backgroundColor = "red";
+      alert(
+        "Password validation failed: Password must have more than 6 characters and contain both letters and numbers."
+      );
+      passwordField.focus();
+    }
+  }
+}
+
+signButton.addEventListener("click", (e) => {
+  e.preventDefault();
+  validation();
+});
+
+inputField.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    validation();
+  }
+});
+
+passwordField.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    validation();
+  }
+});

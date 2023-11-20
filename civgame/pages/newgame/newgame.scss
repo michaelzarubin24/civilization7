@@ -1,17 +1,78 @@
-@import "../civgame/styles/variables.scss";
-@import "../civgame/styles/mixings.scss";
+@import "../../styles/variables.scss";
+@import "../../styles/mixings.scss";
 
 body {
-  background-image: url(https://2game.com/wp/wp-content/uploads/2020/04/civilization-6-gathering-storm_6050846.jpg);
+  background-image: url(https://images.ctfassets.net/wn7ipiv9ue5v/6MYg8PHdexAuyTSPul00qu/2f13e721cb9dda84f6b77d1d6fb36f52/2KGMKT_CIV_VI_GS_D2C_Hero_3840x2160_1.jpg);
   background-repeat: no-repeat;
   background-size: cover;
 }
-.logo-wrapper {
-  @include d-flex(space-around, center);
+
+#app {
+  height: 100vh;
+  font-family: $ff-secondary;
 }
 
-.logo {
-  height: 60%;
-  width: 60%;
-  margin-top: $margin-xl;
+// .logo-wrapper {
+//   @include d-flex(space-around, center);
+// }
+
+// .logo {
+//   height: 50%;
+//   width: 50%;
+//   margin-top: $margin-xl;
+//   transition: transform 0.3s;
+//   &:hover {
+//     transform: scale(1.15);
+//   }
+// }
+
+.selection-screen {
+  background: #f5f9d3;
+  border: 5px ridge #d9dcab;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  width: 600px;
+  height: 50%;
+  position: absolute;
+  left: 30%;
+  top: 30%;
+}
+
+.title {
+  text-align: center;
+  font-size: $fs-l;
+  border-bottom: 1px solid black;
+}
+
+.main-screen {
+  display: flex;
+  flex-direction: row;
+}
+
+.selector {
+  height: 300px;
+  width: 600px;
+  @include d-flex(flex-start, center, row);
+
+  font-size: $fs-s;
+}
+
+.civ-picker {
+  @include d-flex(center, center, column);
+  border-right: 1px solid black;
+  height: 100%;
+}
+
+#civ-eng,
+#civ-fra,
+#civ-ind,
+#civ-chi {
+  margin-left: $margin-xs;
+  padding: $padding-xs;
+  font-size: $fs-s;
+  transition: transform 0.3s;
+  &:hover {
+    transform: scale(1.15);
+    cursor: pointer;
+  }
 }

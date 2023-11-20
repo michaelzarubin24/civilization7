@@ -76,8 +76,10 @@ export class Component {
   // other
 
   addChildren(children) {
-    for (const child of children) {
-      this.#children.push(child);
+    if (Array.isArray(children)) {
+      this.#children.push(...children);
+    } else {
+      this.#children.push(children);
     }
   }
 

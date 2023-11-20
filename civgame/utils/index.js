@@ -1,6 +1,7 @@
 import { isArray } from "../utils/isArray";
-import { defineEvent } from "../utils/defineEvents";
 import { render } from "../utils/render";
 import { hasKeys } from "../utils/hasKeys";
-
-export { isArray, defineEvent, render, hasKeys };
+import { hasNumbersAndLetters } from "../utils/hasNumbersAndLetters";
+import { playSound } from "../utils/playAudio";
+// import { highlighter } from "../utils/highlighter";
+export { isArray, render, hasKeys, hasNumbersAndLetters, playSound };

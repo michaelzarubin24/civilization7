@@ -1,0 +1,55 @@
+@import "../../../styles/variables.scss";
+@import "../../../styles/mixings.scss";
+
+#picked-civ-eng,
+#picked-civ-fra,
+#picked-civ-ind,
+#picked-civ-chi {
+  display: none;
+
+  &.active {
+    height: 100%;
+    width: 100%;
+    margin-top: $margin-m;
+    display: block;
+  }
+}
+.picked-civ-info {
+  @include d-flex(space-around, center, row);
+  margin-left: 30px;
+  height: 99%;
+}
+.civ-info-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+// .civ-icon {
+// }
+.icon {
+  height: 120px;
+  width: 120px;
+}
+.civ-title {
+  font-size: $fs-m;
+}
+// .civ-leader {
+// }
+.civ-description {
+  text-align: center;
+  font-style: italic;
+  opacity: 80%;
+  font-size: $fs-xs;
+  width: 215px;
+}
+.picked-civ-img {
+  width: 40%;
+  margin-bottom: 30px;
+}
+.leader-img {
+  //   height: 85%;
+  //   width: 85%;
+  position: relative;
+  height: 300px;
+  bottom: -10px;
+}

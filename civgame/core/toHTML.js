@@ -30,12 +30,13 @@ export const toHTML = (instance) => {
         element.setAttribute(attr, instance.attributes[attr]);
       }
     }
-
-    for (const child of children) {
+    const childrenArray = Array.isArray(children) ? children : [children];
+    for (const child of childrenArray) {
       if (child instanceof Component) element.append(child.toHTML());
     }
 
     return element;
   }
-  return "There isn't any instance of class Component.";
+
+  return null;
 };
