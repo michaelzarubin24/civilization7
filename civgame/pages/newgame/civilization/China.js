@@ -67,7 +67,7 @@ export class China extends Component {
           children: [
             new Component({
               tagName: "img",
-              src: "../../public/civleaders/qin.png",
+              src: "../../public/civleaders/china-leader.png",
               alt: "qin",
               className: "leader-img",
             }),

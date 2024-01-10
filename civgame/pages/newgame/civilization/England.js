@@ -66,7 +66,7 @@ export class England extends Component {
           children: [
             new Component({
               tagName: "img",
-              src: "../../public/civleaders/victoria.png",
+              src: "../../public/civleaders/england-leader.png",
               alt: "victoria",
               className: "leader-img",
             }),

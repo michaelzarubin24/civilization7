@@ -1,4 +1,5 @@
 import { toHTML } from "./toHTML";
+import { render } from "./render";
 
 export class Component {
   #tagName;
@@ -80,6 +81,28 @@ export class Component {
       this.#children.push(...children);
     } else {
       this.#children.push(children);
+    }
+  }
+
+  clearChildren(container) {
+    this.#children = [];
+    this.render(container);
+  }
+
+  render(container) {
+    if (!container) {
+      console.error("Invalid container. Please provide a valid DOM element.");
+      return;
+    }
+
+    // Clear existing content only if needed
+    if (this.clearBeforeRender) {
+      container.innerHTML = "";
+    }
+
+    // Render only the specific part of the map
+    for (const child of this.#children) {
+      container.appendChild(toHTML(child));
     }
   }
 

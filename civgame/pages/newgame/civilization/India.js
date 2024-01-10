@@ -67,7 +67,7 @@ export class India extends Component {
           children: [
             new Component({
               tagName: "img",
-              src: "../../public/civleaders/gandhi.png",
+              src: "../../public/civleaders/india-leader.png",
               alt: "gandhi",
               className: "leader-img",
             }),

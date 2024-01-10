@@ -1,0 +1,124 @@
+@import "../../../styles/variables.scss";
+
+body {
+  background-image: url(https://images.ctfassets.net/wn7ipiv9ue5v/6MYg8PHdexAuyTSPul00qu/2f13e721cb9dda84f6b77d1d6fb36f52/2KGMKT_CIV_VI_GS_D2C_Hero_3840x2160_1.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+#main-screen {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  width: 50%;
+  background-color: #d9dcab;
+  padding: 30px;
+  border: 5px ridge #d9dcab;
+}
+
+.game-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+#start-btn {
+  font-family: $ff-secondary;
+  height: 30px;
+  width: 85px;
+  color: #d9dcab;
+  background-color: black;
+  transition: transform 0.3s;
+
+  &:hover {
+    transform: scale(1.15);
+    cursor: pointer;
+  }
+}
+
+.earth-map {
+  display: grid;
+  grid-template-columns: repeat(20, 1fr);
+  grid-template-rows: repeat(20, 1fr);
+  gap: 0;
+  width: 500px;
+  height: 500px;
+  border: 5px ridge #d9dcab;
+}
+
+.earth-tile {
+  border: 1px solid #000;
+  transition: transform 0.3s;
+
+  &:hover {
+    transform: scale(1.15);
+    cursor: pointer;
+  }
+
+  &.snow {
+    background-color: white;
+  }
+  &.tundra {
+    background-color: grey;
+  }
+  &.desert {
+    background-color: #efdeb0;
+  }
+  &.forests {
+    background-color: #0ca789;
+  }
+  &.jungles {
+    background-color: #066754;
+  }
+  &.oceans {
+    background-color: #414bb2;
+  }
+  &.england-start {
+    background: url(../../../public/civicons/england.png);
+    background-size: cover;
+  }
+  &.france-start {
+    background: url(../../../public/civicons/france.png);
+    background-size: cover;
+  }
+  &.india-start {
+    background: url(../../../public/civicons/india.png);
+    background-size: cover;
+  }
+  &.china-start {
+    background: url(../../../public/civicons/china.png);
+    background-size: cover;
+  }
+}
+
+.civ-info-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 20px;
+  gap: 30px;
+}
+
+.selected-civilization-name,
+.selected-civilization-title {
+  font-family: $ff-secondary;
+  font-size: $fs-m;
+}
+
+.main-icon {
+  width: 50%;
+}
+
+.main-image {
+  position: absolute;
+  bottom: 50px;
+  height: 350px;
+}

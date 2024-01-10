@@ -2,26 +2,26 @@ import { Button, Main } from "../../../components";
 import { append, prepend } from "../../../core/append";
 import { Component } from "../../../core/component";
 import { render } from "../../../utils";
-
 import "../../newgame/newgame.scss";
 
 import { China } from "../civilization/China";
 import { England } from "../civilization/England";
 import { France } from "../civilization/France";
 import { India } from "../civilization/India";
+import { startingLocations } from "../game/map/startingLocations";
 
 // ---------------------------------civs----------------------------------
 const england = new England({
-  id: "picked-civ-eng",
+  id: "picked-england",
 });
 const france = new France({
-  id: "picked-civ-fra",
+  id: "picked-france",
 });
 const india = new India({
-  id: "picked-civ-ind",
+  id: "picked-india",
 });
 const china = new China({
-  id: "picked-civ-chi",
+  id: "picked-china",
 });
 
 const civilizations = [england, france, china, india];
@@ -29,62 +29,119 @@ const civilizations = [england, france, china, india];
 
 const civs = [
   {
-    id: "civ-eng",
+    id: "england",
     textContent: "ENGLAND",
+    row: 4,
+    col: 10,
   },
   {
-    id: "civ-fra",
+    id: "france",
     textContent: "FRANCE",
+    row: 6,
+    col: 9,
   },
   {
-    id: "civ-ind",
+    id: "india",
     textContent: "INDIA",
+    row: 12,
+    col: 15,
   },
   {
-    id: "civ-chi",
+    id: "china",
     textContent: "CHINA",
+    row: 7,
+    col: 18,
   },
 ];
 
-// 1. If I hover over element - content is shown
-// 2. If I remove hover - content is hidden
-// 3. If I hover and click and remove hover - content is shown and sticked
-// 4. If I hover, click and then hover over next civilization - previous civilization is hidden, new civilization is shown
-// 5. If I hover, click, hover over the next civilization and then click on the next civilization -
-//  previous civilization is hidden, new civilization is shown and sticked
+let hovered = false;
+let selected = false;
+let selectedCivId = null;
 
-// div attributes
+const handleHover = (civId, isHovering, isClicking) => {
+  const civElement = document.getElementById(`picked-${civId}`);
 
-let active = null;
+  if (civElement) {
+    if (isHovering) {
+      if (isClicking) {
+        hovered = false;
+        selected = true;
+        selectedCivId = civId;
+      } else {
+        hovered = true;
+        selected = false;
+        selectedCivId = null;
 
-const addHover = (civId, isHovering) => {
-  const civElement = document.querySelector(`#picked-${civId}`);
-  if (isHovering && !active) {
-    civElement.classList.add("active");
+        civs.forEach((civData) => {
+          const otherCivElement = document.getElementById(
+            `picked-${civData.id}`
+          );
+          if (otherCivElement && civData.id !== civId) {
+            otherCivElement.classList.remove("selected");
+          }
+        });
+      }
+    } else {
+      if (!isClicking && !isHovering) {
+        hovered = false;
+      }
+    }
+
+    updateClasses(civElement);
   }
 };
 
-const removeHover = (civId, isHovering) => {
-  const civElement = document.querySelector(`#picked-${civId}`);
-  if (!isHovering && !active) {
-    civElement.classList.remove("active");
+const handleClick = (civId, isClicking) => {
+  const civElement = document.getElementById(`picked-${civId}`);
+
+  if (civElement) {
+    if (isClicking) {
+      hovered = false;
+      selected = true;
+      selectedCivId = civId;
+    } else {
+      selected = false;
+      selectedCivId = null;
+    }
+
+    updateClasses(civElement);
   }
 };
 
-const handleClick = (civId) => {
-  const civElement = document.querySelector(`#picked-${civId}`);
-  const prevCivElement = document.querySelector(`#picked-${active}`);
+const updateClasses = (civElement) => {
+  civElement.classList.toggle("hovered", hovered);
+  civElement.classList.toggle("selected", selected);
 
-  if (active && prevCivElement && active !== civId) {
-    prevCivElement.classList.remove("active");
-  }
+  const playBtnElement = document.getElementById("play-btn");
 
-  if (!civElement.classList.contains("active")) {
-    civElement.classList.add("active");
-    active = civId;
+  if (selected) {
+    playBtnElement.classList.add("active");
+    playBtnElement.addEventListener("click", handlePlayButtonClick);
   } else {
-    civElement.classList.remove("active");
-    active = null;
+    playBtnElement.classList.remove("active");
+    playBtnElement.removeEventListener("click", handlePlayButtonClick);
+  }
+
+  console.log(playBtnElement);
+};
+
+const handlePlayButtonClick = () => {
+  const selectedCiv = civs.find(
+    (civData) => selected && civData.id === selectedCivId
+  );
+  if (selectedCiv) {
+    const { id, textContent, row, col } = selectedCiv;
+    const civInfo = {
+      id,
+      textContent,
+      iconSrc: `../../../public/civicons/${id}.png`,
+      leaderSrc: `../../../public/civleaders/${id}-leader.png`,
+      row,
+      col,
+    };
+
+    localStorage.setItem("selectedCivInfo", JSON.stringify(civInfo));
+    window.location.href = "http://localhost:5173/pages/newgame/game/game.html";
   }
 };
 
@@ -94,9 +151,9 @@ const civElements = civs.map((civData) => {
     id: civData.id,
     textContent: civData.textContent,
     events: {
-      mouseenter: () => addHover(civData.id, true),
-      mouseleave: () => removeHover(civData.id, false),
-      click: () => handleClick(civData.id),
+      mouseenter: () => handleHover(civData.id, true, false),
+      mouseleave: () => handleHover(civData.id, false, false),
+      click: () => handleClick(civData.id, true),
     },
   });
 
@@ -122,15 +179,38 @@ const mainScreen = new Main({
   children: [selector],
 });
 
+const backBtn = new Component({
+  tagName: "img",
+  id: "back-btn",
+  src: "../../../public/images/back-button.png",
+  alt: "Error img",
+  events: {
+    click: () => {
+      window.location.href = "http://localhost:5173/";
+    },
+  },
+});
+
 const title = new Component({
   tagName: "div",
   className: "title",
-  textContent: "CIVILIZATON",
+  textContent: "Choose your Civilization",
+});
+
+const playBtn = new Button({
+  id: "play-btn",
+  textContent: "PLAY",
+});
+
+const header = new Component({
+  tagName: "header",
+  className: "selection-header",
+  children: [backBtn, title, playBtn],
 });
 
 // -------------------export selection screen --------------------------------
 export const selectionScreen = new Component({
   tagName: "div",
   className: "selection-screen",
-  children: [title, mainScreen],
+  children: [header, mainScreen],
 });

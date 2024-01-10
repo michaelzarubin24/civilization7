@@ -1,13 +1,14 @@
 @import "../../../styles/variables.scss";
 @import "../../../styles/mixings.scss";
 
-#picked-civ-eng,
-#picked-civ-fra,
-#picked-civ-ind,
-#picked-civ-chi {
+#picked-england,
+#picked-france,
+#picked-india,
+#picked-china {
   display: none;
 
-  &.active {
+  &.hovered,
+  &.selected {
     height: 100%;
     width: 100%;
     margin-top: $margin-m;

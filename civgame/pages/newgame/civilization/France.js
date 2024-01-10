@@ -67,7 +67,7 @@ export class France extends Component {
           children: [
             new Component({
               tagName: "img",
-              src: "../../public/civleaders/catherine.png",
+              src: "../../public/civleaders/france-leader.png",
               alt: "catherine",
               className: "leader-img",
             }),

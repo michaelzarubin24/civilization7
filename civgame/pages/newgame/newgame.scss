@@ -38,10 +38,45 @@ body {
   top: 30%;
 }
 
+.selection-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  border-bottom: 1px solid black;
+}
+
+#back-btn {
+  position: absolute;
+  height: 28px;
+  margin-top: 14px;
+  left: 32px;
+  transition: transform 0.3s;
+  &:hover {
+    transform: scale(1.15);
+    cursor: pointer;
+  }
+}
+
+#play-btn {
+  position: absolute;
+  font-family: $ff-secondary;
+  margin-top: 14px;
+  height: 25px;
+  width: 70px;
+  right: 24px;
+  color: #d9dcab;
+  background-color: black;
+  transition: transform 0.3s;
+  &:hover {
+    transform: scale(1.15);
+    cursor: pointer;
+  }
+}
+
 .title {
   text-align: center;
-  font-size: $fs-l;
-  border-bottom: 1px solid black;
+  font-size: 20px;
+  padding: 15px;
 }
 
 .main-screen {
@@ -63,10 +98,10 @@ body {
   height: 100%;
 }
 
-#civ-eng,
-#civ-fra,
-#civ-ind,
-#civ-chi {
+#england,
+#france,
+#india,
+#china {
   margin-left: $margin-xs;
   padding: $padding-xs;
   font-size: $fs-s;
